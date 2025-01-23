@@ -1,14 +1,15 @@
 const Card = (props) => {
   const { country } = props;
+
   return (
     <ul>
-      <li>
-        <img src="" alt="flag" />
-        <div>
+      <li className="card">
+        <img src={country.flag} alt="flag" />
+        <div className="data_container">
           <ul>
-            <li>{country.name}</li>
-            <li>{country.capital}</li>
-            <li>pop: {country.population}</li>
+            <li> {country.name} </li>
+            <li> {country.capital} </li>
+            <li> pop: {country.population} </li>
           </ul>
         </div>
       </li>

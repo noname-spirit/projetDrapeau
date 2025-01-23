@@ -1,5 +1,6 @@
-import Countries from "../components/Countries";
 import Navigation from "../components/Navigation";
+
+import Countries from "../components/Countries";
 
 const Home = () => {
   return (

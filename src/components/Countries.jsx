@@ -3,30 +3,33 @@ import Card from "./Card";
 import axios from "axios";
 
 const Countries = (props) => {
-  const [data, setdata] = useState([]); // on recupere les donnée dans un tableau
+  //  le useState permet de modifier l'état d'une donée
+  const [data, setData] = useState([]); //on récupere les donnée dans un tableau vide
   const [sortData, setSortData] = useState([]); // permet le trie des données
 
-  // useStates permet de modifier l'etat d'un e donné
-
-  // useEffect permet de generer des effets de bord
-  // ici le fait d'ajouter une dependance permet de stopper la requtette qui se fait en boucle
+  //  le useEffect permet de génerer des effets de bord
+  //  ici le fait d'ajouter une dépendence permet de stopper la requette qui se fait en boucle
   useEffect(() => {
-    // permet de faire une requette en get vers l'api
-    // axios uniquement pour le requette html
+    // permet de faire une requette en get vers l'API
     axios
       .get(
         "https://restcountries.com/v2/all?fields=name,population,region,capital,flag"
       )
-      .then((res) => setdata(res.data));
+      .then((res) => setData(res.data));
+
+    // const  sortedCountry = () => {
+
+    // }
+    // setSortData()
   }, []);
 
-  console.log(data);
-
   return (
-    <div className="countries_liste">
-      {sortData.map(() => (
-        <Card country={country} key={country.name} />
-      ))}
+    <div className="countries">
+      <div className="countries_liste">
+        {data.map((country) => (
+          <Card country={country} key={country.name} />
+        ))}
+      </div>
     </div>
   );
 };
