@@ -14,15 +14,23 @@ const Countries = (props) => {
   // Permet de stopper la requette (une seule fois)
   useEffect(() => {
     // Permet de faire une requette en get vers l'API
-    console.log(
-      axios
-        .get(
-          "https://restcountries.com/v2/all?fields=name,population,region,capital,flag"
-        )
-        .then((res) => setData(res.data))
-    );
-  }, []);
-  console.log(data);
+    axios
+      .get(
+        "https://restcountries.com/v2/all?fields=name,population,region,capital,flag"
+      )
+      .then((res) => setData(res.data));
+    const sortedCountry = () => {
+      const countryObj = Object.keys(data).map((i) => data[i]);
+
+      // permet d'afficher la population
+      const sortedArray = countryObj.sort((a, b) => {
+        return a.population - b.population;
+      });
+      sortedArray.length = rangeValue;
+      setSortData(sortedArray);
+    };
+    sortedCountry();
+  }, [data, rangeValue]);
 
   return (
     <div className="countries">
@@ -52,7 +60,7 @@ const Countries = (props) => {
         </ul>
       </div>
       <div className="countries_liste">
-        {data
+        {sortData
           .filter((country) => country.region.includes(selectedRadio))
           .map((country) => (
             <Card country={country} key={country.name} />
