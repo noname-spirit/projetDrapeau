@@ -3,32 +3,60 @@ import Card from "./Card";
 import axios from "axios";
 
 const Countries = (props) => {
-  //  le useState permet de modifier l'état d'une donée
-  const [data, setData] = useState([]); //on récupere les donnée dans un tableau vide
-  const [sortData, setSortData] = useState([]); // permet le trie des données
+  // useState permet de modifier l'état d'unedonnée
+  const [data, setData] = useState([]); // On récupere les donnée dans un tableau
+  const [sortData, setSortData] = useState([]); // Permet de trie des données
 
-  //  le useEffect permet de génerer des effets de bord
-  //  ici le fait d'ajouter une dépendence permet de stopper la requette qui se fait en boucle
+  const [rangeValue, setRangeValue] = useState(36);
+  const [selectedRadio, setSelectedRadio] = useState("");
+  const radio = ["Africa", "America", "Asia", "Europe", "Oceania"];
+
+  // Permet de stopper la requette (une seule fois)
   useEffect(() => {
-    // permet de faire une requette en get vers l'API
-    axios
-      .get(
-        "https://restcountries.com/v2/all?fields=name,population,region,capital,flag"
-      )
-      .then((res) => setData(res.data));
-
-    // const  sortedCountry = () => {
-
-    // }
-    // setSortData()
+    // Permet de faire une requette en get vers l'API
+    console.log(
+      axios
+        .get(
+          "https://restcountries.com/v2/all?fields=name,population,region,capital,flag"
+        )
+        .then((res) => setData(res.data))
+    );
   }, []);
+  console.log(data);
 
   return (
     <div className="countries">
+      <div className="sort_container">
+        <input
+          type="range"
+          min="1"
+          max="250"
+          value={rangeValue}
+          onChange={(e) => setRangeValue(e.target.value)}
+        />
+        <ul>
+          {radio.map((radio) => {
+            return (
+              <li key={radio}>
+                <input
+                  type="radio"
+                  id={radio}
+                  value={radio}
+                  checked={radio === selectedRadio}
+                  onChange={(e) => setSelectedRadio(e.target.value)}
+                />
+                <label htmlFor={radio}> {radio} </label>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       <div className="countries_liste">
-        {data.map((country) => (
-          <Card country={country} key={country.name} />
-        ))}
+        {data
+          .filter((country) => country.region.includes(selectedRadio))
+          .map((country) => (
+            <Card country={country} key={country.name} />
+          ))}
       </div>
     </div>
   );
