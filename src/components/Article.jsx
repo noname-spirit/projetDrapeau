@@ -19,10 +19,28 @@ const Article = ({ article }) => {
 
   return (
     <div className="article">
-      <p>{article.author}</p>
-      <em> postele : {article.date}</em>
+      <div className="card_header">
+        <p>{article.author}</p>
+        <em> postele : {article.date}</em>
+      </div>
 
-      {<p> {editContent ? editContent : article.content}</p>}
+      {isEditing ? (
+        <textarea
+          onChange={(e) => seteditContent(e.target.value)}
+          autoFocus
+          defaultValue={editContent ? editContent : article.content}
+        ></textarea>
+      ) : (
+        <p> {editContent ? editContent : article.content}</p>
+      )}
+
+      <div className="btn-container">
+        {isEditing ? (
+          <button onClick={handleEdit}>Valider</button>
+        ) : (
+          <button onClick={() => serIsediting(true)}>Edit</button>
+        )}
+      </div>
     </div>
   );
 };

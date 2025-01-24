@@ -1,0 +1,22 @@
+{
+  "articles": [
+    {
+      "authors": "christian",
+      "content": "coucou c'est moi",
+      "id": "1",
+      "date": 20012025
+    },
+    {
+      "authors": "christian",
+      "content": "coucou c'est moi",
+      "id": "2",
+      "date": 20012025
+    },
+    {
+      "id": "948e",
+      "author": "",
+      "content": "test",
+      "date": "2025-01-24T15:24:19.081Z"
+    }
+  ]
+}
